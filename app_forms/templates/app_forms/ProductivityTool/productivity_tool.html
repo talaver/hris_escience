@@ -11,16 +11,16 @@
 
     <div style="margin-left: 10px;" class="btn-group">
         <div class="col-lg-4">
-                <button onclick="window.location='{% url 'productivity_tool_request' %}'" style="width: 150px;" class="btn btn btn-outline-info">Filed Requests</button>
+                <button onclick="window.location='{% url 'productivity_tool_request' %}'" style="width: 150px;" class="btn btn-primary btn-outline-info">Filed Requests</button>
         </div>
         {% load auth_extras %} 
         {% if request.user|has_group:"Supervisors" or request.user|has_group:"Team Leads" or request.user|has_group:"HRD" %}
             <div class="col-lg-3"style="margin-left: -45px;">
-                <button onclick="window.location='{% url 'productivity_tool_approval' %}'" style="width: 190px;" class="btn btn btn-outline-info">Approval Requests</button>
+                <button onclick="window.location='{% url 'productivity_tool_approval' %}'" style="width: 190px;" class="btn btn-primary btn-outline-info">Approval Requests</button>
             </div>
     
             <div class="col-lg-3" style="margin-left: 45px;">
-                <button onclick="window.location='{% url 'reports_productivity_tool' %}'" style="width: 150px;" class="btn btn btn-outline-info">Reports</button>
+                <button onclick="window.location='{% url 'reports_productivity_tool' %}'" style="width: 150px;" class="btn btn-primary btn-outline-info">Reports</button>
             </div>
         {% endif %}
     </div>
