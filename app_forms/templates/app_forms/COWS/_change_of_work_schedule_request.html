@@ -1,0 +1,16 @@
+<div class="card text-white bg-primary mb-3">
+    <div class="card-header"><a href="#" style="color: #00bc8c;"><h5 onclick="window.location='{% url 'change_of_work_schedule_request_details' pk=cow.pk %}'">{{ cow.author }}</h5></a></div>
+    <div class="card-body">
+            <p class="card-text"> FROM : {{ cow.fromDate| date:"M d Y" }} ({{ cow.fromTimeFrom }} - {{ cow.fromTimeTo }})</p>
+            <p class="card-text"> TO : {{ cow.toDate| date:"M d Y" }} ({{ cow.toTimeFrom }} - {{ cow.toTimeTo }})</p>
+            {% if cow.status == 'None' %}
+                <button data-id="{{ cow.id }}" onclick="deleteChangeOfWorkSchedule(this); refreshPage();" class="btn btn-danger">Delete</button>
+            {% endif %}
+    </div>
+</div>
+<script type="text/javascript">
+    function refreshPage()
+    {
+        window.location.reload(true);
+    }
+</script>

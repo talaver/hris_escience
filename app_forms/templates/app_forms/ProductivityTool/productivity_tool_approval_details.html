@@ -1,0 +1,70 @@
+{% extends 'app_forms/base2.html' %}
+
+{% block content %}
+<div class="container jumbotron" style="margin-top: 20px;">
+    <div class="row">
+        <div class="col-lg-5">
+            <button onclick="window.location='{% url 'productivity_tool_approval' %}'" class="btn btn-default">Go Back</button>
+        </div>
+        <div class="col-lg-7">
+                <h1><span><h3 style="font-size: 15px; float: right;">
+                        {% if prodtool.status == 'None' %}
+                        Status : Pending
+                        {% elif prodtool.status == 'True' %}
+                        Status : Approved
+                        {% elif prodtool.status == 'False' %}
+                        Status : Declined
+                        {% endif %}    
+                    </h3></span></h1>
+        </div>  
+    </div>
+    <hr />
+    <h3>Name : {{ prodtool.name }}</h3>
+    <h5>Productivity Tool : {{ prodtool.prodTool }} </h5>
+    <h5>Price : {{ prodtool.price }}</h5>
+    <p style="font-size: 30px;">{{ prodtool.reason }}</p>
+    {% if prodtool.status == 'None' %}
+    <form method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+    {{ field.errors }}
+    {% if field.name == 'remarks' %}
+    <input name="{{ field.name }}" onkeyup="checkRemarks();" id="remarks" type="text" placeholder="Remarks..." class="form-control"/> <br/>
+    {% elif field.name == 'status' %}
+    <select name="{{ field.name }}" id="status" class="form-control" style="width: 150px;" >
+        <option value='True'>APPROVE</option>
+        <option value='False'>DECLINE</option>
+    </select>
+    {% endif %}
+    {% endfor %}
+    <button type="submit" id="btnAcc" data-id="{{ prodtool.id }}" onclick="refreshPage();" class="btn btn-success" disabled>SUBMIT</button>      
+    </form> 
+    {% else %}
+    <p style="font-size: 20px;">Remarks : {{ prodtool.remarks }}</p>
+    <p style="font-size: 20px;">Approved By : {{ prodtool.approvedBy }}</p>
+    {% endif %}
+</div>
+<script type="text/javascript">
+    function refreshPage()
+    {
+        if(document.getElementById('status').value == "APPROVE"){
+            document.getElementById('status').value = true
+        } 
+        else if(document.getElementById('status').value == "DECLINE"){
+            document.getElementById('status').value = false
+        }
+
+        window.location.reload(true);
+    }
+
+    function checkRemarks(){
+        if(document.getElementById('remarks').value == "" ){
+            document.getElementById('btnAcc').disabled = true;
+            document.getElementById('btnDec').disabled = true;
+        } else {
+            document.getElementById('btnAcc').disabled = false;
+            document.getElementById('btnDec').disabled = false;
+        }
+    }
+</script>
+{% endblock %}

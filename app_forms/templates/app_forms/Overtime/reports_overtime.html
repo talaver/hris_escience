@@ -1,0 +1,97 @@
+{% extends 'app_forms/base2.html' %}
+{% block content %}
+<hr/>
+<form method="POST">
+    {% csrf_token %}
+    <div class="row">
+        {% for field in form %}
+        {% if field.name == 'dateFrom' %}
+        <div class="col-md-3">
+            From : <input style="width: 200px;" name="{{ field.name }}" id="dateFrom" type="date" class="form-control" />
+        </div>
+        {% elif field.name == 'dateTo' %}
+        <div class="col-md-3">
+            To : <input style="width: 200px;" name="{{ field.name }}" id="dateTo" type="date" class="form-control" />
+        </div>
+        {% elif field.name == 'status' %}
+        <div class="col-md-2">
+            Status : 
+            <select id="status" id="leaveType" name="{{ field.name }}" class="form-control">
+                    <option value='All'>All</option>
+                    <option value='None'>Pending</option>
+                    <option value='True'>Approved</option>
+                    <option value='False'>Declined</option>
+            </select>
+        </div>
+        {% endif %}
+        {% endfor %}
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-4">
+                    <br/><button title="Search" style="text-align:center; width: 120px;" class="btn btn-success"><i class="fa fa-search"></i></button>
+                </div>
+                <div class="col-md-4">
+                    <br/><button title="PDF" style="text-align:center; width: 120px;" type="button" class="btn btn-success" onclick="window.location='{% url 'pdf_overtime' %}'"><i class="fa fa-file-pdf-o"></i>&nbsp;PDF</button>
+                </div>
+                <div class="col-md-4">
+                    <br/><button title="Export" style="text-align:center; width: 120px;" type="button" class="btn btn-success" onclick="window.location='{% url 'excel_overtime' %}'"><i class="fa fa-file-excel-o"></i>&nbsp;EXCEL</button>
+                </div>
+                <div class="col-md-4">
+                    <br/><button title="Refresh" style="text-align:center; width: 120px;" type="button" class="btn btn-success" onclick="window.location='{% url 'reports_overtime' %}'"><i class="fa fa-refresh"></i></button>
+                </div>
+                <div class="col-md-4">
+                    <br/><button title="CSV" style="text-align:center; width: 120px;" type="button" class="btn btn-success" onclick="window.location='{% url 'csv_overtime' %}'"><i class="fa fa-file-o"></i>&nbsp;CSV</button>
+                </div>
+                <div class="col-md-4">
+                    <br/><button title="JSON" style="text-align:center; width: 120px;" type="button" class="btn btn-success" onclick="window.location='{% url 'json_overtime' %}'"><i class="fa fa-file-text-o"></i>&nbsp;JSON</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<hr/>
+<div class="container form-group">
+    <div class="table-responsive">          
+        <table class="table">
+          <thead>
+            <tr style="text-align: center">
+                    <th>Date Filed</th>
+                    <th>Name</th>
+                    <th>Date Overtime</th>
+                    <th>Time From</th>
+                    <th>Time To</th>
+                    <th>Number of Hours</th>
+                    <th>Project</th>
+                    <th>Reason</th>
+                    <th>Status</th>
+                    <th>Approved By</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ot in ots %}
+                    <tr style="text-align: center">
+                    <td>{{ ot.dateFiled }}</td>
+                    <td>{{ ot.name }}</td>
+                    <td>{{ ot.date_ot }}</td>
+                    <td>{{ ot.timeFrom }}</td>
+                    <td>{{ ot.timeTo }}</td>
+                    <td>{{ ot.num_of_hrs }}</td>
+                    <td>{{ ot.project_name }}</td>
+                    <td>{{ ot.reason }}</td>
+                    <td>
+                            {% if ot.status == 'True' %}
+                                Approved
+                            {% elif ot.status == 'False' %}
+                                Declined
+                            {% elif ot.status == 'None' %}
+                                Pending
+                            {% endif %}
+                    </td>
+                    <td>{{ ot.approvedBy }}</td>
+                    </tr>
+                    {% endfor %}
+          </tbody>
+        </table>
+        </div>
+</div>
+{% endblock %}

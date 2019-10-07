@@ -1,0 +1,180 @@
+{% extends 'app_forms/base2.html' %}
+{% block content %}
+
+<html>
+
+
+<head>
+</head>
+
+
+<body>
+    <div class="container form-group">
+        <div>
+            <form method="POST">
+                <div class="container">
+                    <div class="row">
+                        <div align="center" class="col-lg-12">
+                            <h3>LEAVE FORM</h3>
+                        </div>
+                    </div>
+                    <hr style="border-top: 1px solid #ccc; background: transparent;">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    {{ field.errors }}
+                    {% if field.name == 'halfDay' %}
+                    {{ field.label }}
+                    <select onchange="selectType();" id="halfDay" name="{{ field.name }}" class="form-control">
+                        <option selected disabled>Choose</option>
+                        <option>Half Day</option>
+                        <option>Whole Day</option>
+                    </select>
+                    <fieldset id="otherInputs" disabled>
+                        <br />
+                        {% elif field.name == 'leaveType' %}
+                        {{ field.label }}
+                        <select onchange="setMaxMinDate();" id="leaveType" name="{{ field.name }}" class="form-control"
+                            value="Sick Leave">
+                            {% load auth_extras %}
+                            <option disabled selected>Select Leave Type</option>
+                            {% if sickCount.leaveCount__sum < sickLeave or request.user|has_group:"Probationary"  %}
+                            <option>Sick Leave</option>
+                            <option>Sick Leave (with Medical Certificate)</option>
+                            {% elif sickCount.leaveCount__sum == None %}
+                            <option>Sick Leave</option>
+                            <option>Sick Leave (with Medical Certificate)</option>
+                            {% elif sickCount.leaveCount__sum >= sickLeave %}
+                            <option disabled>Sick Leave</option>
+                            <option disabled>Sick Leave (with Medical Certificate)</option>
+                            {% endif %}
+
+                            {% if vacationCount.leaveCount__sum < vacationLeave or request.user|has_group:"Probationary" %}
+                            <option>Vacation Leave</option>
+                            {% elif vacationCount.leaveCount__sum == None %}
+                            <option>Vacation Leave</option>
+                            {% elif vacationCount.leaveCount__sum >= vacationLeave %}
+                            <option disabled>Vacation Leave</option>
+                            {% endif %}
+                        </select>
+                        <br />
+                        {% elif field.name == 'dateFrom' %}
+                        {{ field.label }}
+                        <input onchange="sameDay(); properDate();" id="dateFrom" type="date" name="{{ field.name }}"
+                            class="form-control" />
+                        <br />
+                        {% elif field.name == 'dateTo' %}
+                        {{ field.label }}
+                        <input onchange="properDate();" id="dateTo" type="date" name="{{ field.name }}"
+                            class="form-control" />
+                        <br />
+                        {% elif field.name == 'timeFrom' %}
+                        <label id="lblTimeFrom">Time From (HH : MM : AM/PM)</label>
+                        <input id="timeFrom" type="time" name="{{ field.name }}" class="form-control" />
+                        <br />
+                        {% elif field.name == 'timeTo' %}
+                        <label id="lblTimeTo">Time To (HH : MM : AM/PM)</label>
+                        <input id="timeTo" type="time" name="{{ field.name }}" class="form-control" />
+                        <br />
+                        {% elif field.name == 'reason' %}
+                        {{ field.label }}
+                        <input name="{{ field.name }}" class="form-control" placeholder="e.g. Out of town / Sick" />
+                        <br />
+                        {% elif field.name == 'status' %}
+                        <input name="{{ field.name }}" class="form-control" value='None' hidden />
+                        {% endif %}
+                        {% endfor %}
+                        <br>
+                        <button type="submit" class="btn btn-info btn-block">Submit</button>
+                    </fieldset>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+<!-- SET MAX AND MIN DATE  -->
+<script type="text/javascript">
+    function sameDay() {
+        var dateFrom = document.getElementById('dateFrom');
+        var dateTo = document.getElementById('dateTo');
+        var selectedType = document.getElementById('halfDay');
+        if (selectedType.value === 'Half Day') {
+            dateTo.value = dateFrom.value;
+        }
+    }
+
+    function selectType() {
+        var selectedType = document.getElementById('halfDay');
+        if (selectedType.value === 'Half Day') {
+            document.getElementById('otherInputs').disabled = false;
+            document.getElementById('dateTo').readOnly = true;
+            document.getElementById('timeFrom').style.display = 'block';
+            document.getElementById('timeTo').style.display = 'block';
+            document.getElementById('lblTimeFrom').style.display = 'block';
+            document.getElementById('lblTimeTo').style.display = 'block';
+            document.getElementById('dateFrom').value = null;
+            document.getElementById('dateTo').value = null;
+        } else if (selectedType.value === 'Whole Day') {
+            document.getElementById('otherInputs').disabled = false;
+            document.getElementById('dateTo').readOnly = false;
+            document.getElementById('timeFrom').style.display = 'none';
+            document.getElementById('timeTo').style.display = 'none';
+            document.getElementById('lblTimeFrom').style.display = 'none';
+            document.getElementById('lblTimeTo').style.display = 'none';
+            document.getElementById('dateFrom').value = null;
+            document.getElementById('dateTo').value = null;
+        }
+    }
+
+    function setMaxMinDate() {
+        var lType = document.getElementById('leaveType');
+        var today = new Date();
+        var dd = today.getDate();
+        var vLeaveDD = today.getDate() + 7;
+        var sLeaveDD = today.getDate() - 6;
+        var mm = today.getMonth() + 1;
+        var yyyy = today.getFullYear();
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+        if (mm < 10) {
+            mm = '0' + mm
+        }
+        today = yyyy + '-' + mm + '-' + dd;
+        vLeaveToday = yyyy + '-' + mm + '-' + vLeaveDD;
+        sLeaveToday = yyyy + '-' + mm + '-' + sLeaveDD;
+
+        if (lType.value === 'Vacation Leave') {
+            document.getElementById('dateFrom').setAttribute("min", vLeaveToday);
+            document.getElementById('dateTo').setAttribute("min", vLeaveToday);
+            document.getElementById('dateFrom').setAttribute("max", yyyy + '-' + '12' + '-' + '31');
+            document.getElementById('dateTo').setAttribute("max", yyyy + '-' + '12' + '-' + '31');
+            document.getElementById('dateFrom').value = null;
+            document.getElementById('dateTo').value = null;
+        } else if (lType.value === 'Sick Leave') {
+            document.getElementById('dateFrom').setAttribute("min", sLeaveToday);
+            document.getElementById('dateTo').setAttribute("min", sLeaveToday);
+            document.getElementById('dateFrom').setAttribute("max", today);
+            document.getElementById('dateTo').setAttribute("max", today);
+            document.getElementById('dateFrom').value = null;
+            document.getElementById('dateTo').value = null;
+        } else if (lType.value === 'Sick Leave (with Medical Certificate)') {
+            document.getElementById('dateFrom').setAttribute("min", sLeaveToday);
+            document.getElementById('dateTo').setAttribute("min", sLeaveToday);
+            document.getElementById('dateFrom').setAttribute("max", today);
+            document.getElementById('dateTo').setAttribute("max", today);
+            document.getElementById('dateFrom').value = null;
+            document.getElementById('dateTo').value = null;
+        }
+    }
+
+    function properDate() {
+        var dateFrom = document.getElementById('dateFrom');
+        var dateTo = document.getElementById('dateTo');
+
+        if (dateFrom.value > dateTo.value) {
+            dateFrom.value = dateTo
+        }
+    }
+</script>
+{% endblock %}

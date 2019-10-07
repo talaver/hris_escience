@@ -1,0 +1,16 @@
+<div class="{% if leave.leaveType == 'Vacation Leave' %}card text-white bg-primary mb-3{% else %}card text-white bg-success mb-3{% endif %}" style="max-width: 20rem;">
+        <div class="card-header"><a href="#" style="color: white;"><h5 onclick="window.location='{% url 'leave_request_details' pk=leave.pk %}'">{{ leave.dateFrom| date:"M d Y" }} - {{ leave.dateTo| date:"M d Y" }}</h5></a></div>
+        <div class="card-body">
+                <h4 class="card-title">{{ leave.leaveType| truncatechars:20 }} ({{ leave.leaveCount }} Day/s)</h4>
+                {% if leave.status == 'None' %}
+                <button data-id="{{ leave.id }}" onclick="deleteLeave(this); refreshPage();" class="btn btn-danger">Delete</button>
+                {% endif %}
+        </div>
+</div>
+<script type="text/javascript">
+        function refreshPage()
+        {
+            window.location.reload(true);
+        }
+</script>
+

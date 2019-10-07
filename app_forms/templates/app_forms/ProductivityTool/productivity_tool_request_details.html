@@ -1,0 +1,30 @@
+{% extends 'app_forms/base2.html' %}
+{% block content %}
+<div class="container jumbotron" style="margin-top: 20px;">
+    <div class="row">
+        <div class="col-lg-5">
+            <button onclick="window.location='{% url 'productivity_tool_request' %}'" class="btn btn-default">Go Back</button>
+        </div>
+        <div class="col-lg-7">
+            <h1><span><h3 style="font-size: 15px; float: right;">
+                {% if ptool.status == None %}
+                Status : Pending
+                {% elif ptool.status == True %}
+                Status : Approved
+                {% elif ptool.status == False %}
+                Status : Declined
+                {% endif %}    
+            </h3></span></h1>
+        </div>
+    </div>
+    <hr />
+    <h3>Name : {{ prodtool.author }}</h3>
+    <h5>Productivity Tool : {{ prodtool.prodTool }} </h5>
+    <h5>Price : ₱ {{ prodtool.price }} </h5>
+    <p style="font-size: 30px;">Reason/s : {{ prodtool.reasons }}</p>
+    {% if prodtool.status != None %}
+    <p style="font-size: 20px;">Remarks : {{ prodtool.remarks }}</p>
+    <p style="font-size: 20px;">Approved By : {{ prodtool.approvedBy }}</p>
+    {% endif %}
+</div>
+{% endblock %}

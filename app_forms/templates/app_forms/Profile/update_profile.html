@@ -1,0 +1,85 @@
+{% extends 'app_forms/base2.html' %}
+{% block content %}
+
+<html>
+<head>
+</head>
+<body>
+    <div class="container form-group">
+        <br/>
+        <form method="POST" enctype="multipart/form-data">
+                <div class="container" style="margin-top: 60px; width: 50%;">
+                {% csrf_token %}
+                {% if user.profilePic %}
+                <div class="row">
+                    <div align="center" class="col-lg-12">
+                        <img src="{{ user.profilePic.url }}" style="height: 100%; width: 50%;" alt=""/>
+                    </div>
+                </div>
+                {% endif %}
+                {% if user.phoneNum %}
+                <div class="row">
+                    <div align="center" class="col-lg-12">
+                        <label>Phone Number : {{ user.phoneNum }}</label>
+                    </div>
+                </div>
+                {% endif %}
+                <hr style="border-top: 1px solid #ccc; background: transparent; margin-top: 8%;">
+                <div class="row">
+                    <div align="center" class="col-lg-12">
+                        <h3>UPDATE PROFILE</h3>
+                    </div>
+                </div>
+                <hr style="border-top: 1px solid #ccc; background: transparent;">
+
+                <br/>
+
+                {% for field in form %}
+                {{ field.errors }}
+                {% if field.name == 'profilePic' %}
+                <div class="row">
+                    <div align="center" class="col-lg-12">
+                        <label>PROFILE PICTURE</label>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div align="center" class="col-lg-12">
+                        <input type="file" name="{{ field.name }}" id="{{ field.name }}">
+                    </div>
+                </div>
+
+
+                <br/>
+
+                {% elif field.name == 'phoneNum' %}
+                <div class="row">
+                    <div align="center" class="col-lg-12">
+                        <label>PHONE NUMBER</label>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div align="center" class="col-lg-12">
+                        <input name="{{ field.name }}" style="width: 100%; text-align: center" type="text" class="form-control" placeholder="e.g. 9123456789" value="{{ user.phoneNum }}" maxlength="10">
+                    </div>
+                </div>
+
+
+                <br/>
+
+                {% endif %}
+                {% endfor %}
+                
+                <div style="margin-top: 5%;" class="row">
+                    <div class="col-lg-12">
+                        <center><button style="width: 50%;" class="btn btn-info">SUBMIT</button></center>
+                    </div>
+                </div>
+
+                
+            </div>
+        </form>
+    </div>
+</body>
+{% endblock %}

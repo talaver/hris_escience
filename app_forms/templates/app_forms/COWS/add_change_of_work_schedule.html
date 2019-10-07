@@ -1,0 +1,180 @@
+{% extends 'app_forms/base2.html' %}
+{% block content %}
+
+<div class="container form-group">
+    <br/>
+    <form method="POST">
+        <div class="container" style="margin-top: 60px; width: 50%;">
+            {% csrf_token %}
+            <div class="row">
+                <div align="center" class="col-lg-12">
+                    <h3>CHANGE OF WORK SCHEDULE FORM</h3>
+                </div>
+            </div>
+
+
+            <br/>
+
+            {% for field in form %}
+            {{ field.errors }}
+                {% if field.name == 'name' %}
+            <hr style="border-top: 1px solid #ccc; background: transparent;">
+            <div class="row">
+                <div class="col-lg-6">
+                    <label>NAME : </label>
+                    <input value="{{ Uname }}" name="{{ field.name }}" type="text" class="form-control" style="text-align: center;" readonly/>
+                </div>
+                {% elif field.name == 'designation' %}
+                <div class="col-lg-6">
+                    <label>DESIGNATION : </label>
+                    <input value="{{ Ugroup }}" name="{{ field.name }}" type="text" class="form-control" style="text-align: center;" readonly/>
+                </div>
+            </div>
+
+
+            <br/>
+            <hr style="border-top: 1px solid #ccc; background: transparent;">
+
+            
+            <div class="row">
+                <div align="center" class="col-lg-12">
+                    <h3>FROM</h3>
+                </div>
+            </div>
+
+
+            <br/>
+
+            {% elif field.name == 'fromDate' %}
+            <div class="row">
+                <div align="center" class="col-lg-12">
+                    <label>DATE</label>
+                    <input name="{{ field.name }}" style="width: 500px;" type="date" class="form-control">
+                </div>
+            </div>
+
+
+            <br/>
+
+            
+            <div class="row">
+                
+                <div align="center" class="col-lg-6">
+                    <label>TIME FROM</label>
+                </div>
+                <div align="center" class="col-lg-6">
+                    <label>TIME TO</label>
+                </div>
+            </div>
+
+
+            <br/>
+
+
+            <div class="row">
+                {% elif field.name == 'fromTimeFrom' %}
+                <div align="center" class="col-lg-6">
+                    <input name="{{ field.name }}" style="width: 250px;" type="time" class="form-control">
+                </div>
+                {% elif field.name == 'fromTimeTo' %}
+                <div align="center" class="col-lg-6">
+                    <input name="{{ field.name }}" style="width: 250px;" type="time" class="form-control">
+                </div>
+            </div>
+
+
+            <br/>
+            <hr style="border-top: 1px solid #ccc; background: transparent;">
+
+
+            <div class="row">
+                <div align="center" class="col-lg-12">
+                    <h3>TO</h3>
+                </div>
+            </div>
+
+
+            <br/>
+
+            {% elif field.name == 'toDate' %}
+            <div class="row">
+                <div align="center" class="col-lg-12">
+                    <label>DATE</label>
+                    <input name="{{ field.name }}" style="width: 500px;" type="date" class="form-control">
+                </div>
+            </div>
+
+
+            <br/>
+
+
+            <div class="row">
+                <div align="center" class="col-lg-6">
+                    <label>TIME FROM</label>
+                </div>
+                <div align="center" class="col-lg-6">
+                    <label>TIME TO</label>
+                </div>
+            </div>
+
+
+            <br/>
+
+
+            <div class="row">
+                {% elif field.name == 'toTimeFrom' %}
+                <div align="center" class="col-lg-6">
+                    <input name="{{ field.name }}" style="width: 250px;" type="time" class="form-control">
+                </div>
+                <div align="center" class="col-lg-6">
+                {% elif field.name == 'toTimeTo' %}
+                    <input name="{{ field.name }}" style="width: 250px;" type="time" class="form-control">
+                </div>
+            </div>
+
+
+            <br/>
+            <hr style="border-top: 1px solid #ccc; background: transparent;">
+
+            {% elif field.name == 'reason' %}
+            <div class="row">
+                <div class="col-lg-12">
+                    <label>REASON</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <input name="{{ field.name }}" type="text" class="form-control" placeholder="e.g. Late / Render overtime">
+                </div>
+            </div>
+
+
+            <br/>
+
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <label>SUPERVISOR NAME</label>
+                </div>
+            </div>
+            {% elif field.name == 'supervisor_name' %}
+            <div class="row">
+                <div class="col-lg-12">
+                    <input value="{{ Usupervisor }}" name="{{ field.name }}" type="text" class="form-control" style="text-align: center;" readonly>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+            <br/>
+
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <center><button style="width: 50%;" class="btn btn-info">SUBMIT</button></center>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

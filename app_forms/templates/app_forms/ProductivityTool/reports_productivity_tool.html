@@ -1,0 +1,75 @@
+{% extends 'app_forms/base2.html' %}
+{% block content %}
+<hr/>
+<form method="POST">
+    {% csrf_token %}
+    <div class="row">
+        {% for field in form %}
+        {% if field.name == 'searchBox' %}
+        <div class="col-md-6">
+            Username : <input style="width: 400px;" name="{{ field.name }}" id="searchBox" type="text" class="form-control" />
+        </div>
+        {% endif %}
+        {% endfor %}
+        <div class="col-md-6">
+            <div class="btn-group">
+                <div class="col-md-4" style="margin-left: -500px; margin-top: 50px;">
+                    <br/><button title="Refresh" style="text-align:center; width: 80px;" type="button" class="btn btn-success" onclick="window.location='{% url 'reports_productivity_tool' %}'"><i class="fa fa-refresh"></i></button>
+                </div>
+                <div class="col-md-4" style="margin-left: 300px;">
+                    <br/><button title="PDF" style="text-align:center; width: 100px;" type="button" class="btn btn-success" onclick="window.location='{% url 'pdf_productivity_tool' %}'"><i class="fa fa-file-pdf-o"></i>&nbsp;PDF</button>
+                </div>
+                <div class="col-md-4" style="margin-left: -20px;">
+                    <br/><button title="Export" style="text-align:center; width: 100px;" type="button" class="btn btn-success" onclick="window.location='{% url 'excel_productivity_tool' %}'"><i class="fa fa-file-excel-o"></i>&nbsp;EXCEL</button>
+                </div>
+                <div class="col-md-4" style="margin-left: -20px;">
+                    <br/><button title="CSV" style="text-align:center; width: 100px;" type="button" class="btn btn-success" onclick="window.location='{% url 'csv_productivity_tool' %}'"><i class="fa fa-file-o"></i>&nbsp;CSV</button>
+                </div>
+                <div class="col-md-4" style="margin-left: -20px;">
+                    <br/><button title="JSON" style="text-align:center; width: 100px;" type="button" class="btn btn-success" onclick="window.location='{% url 'json_productivity_tool' %}'"><i class="fa fa-file-text-o"></i>&nbsp;JSON</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<hr/>
+<div class="container form-group" style="margin-top: -30px;">
+    <div class="table-responsive">          
+        <table class="table">
+          <thead>
+            <tr style="text-align: center">
+              <th>Name</th>
+              <th>Productivity Tool</th>
+              <th>Price</th>
+              <th>Reason/s</th>
+              <th>Status</th>
+              <th>Date Approved</th>
+              <th>Approved By</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for ptool in prodtool %}
+            <tr style="text-align: center">
+              <td>{{ ptool.name }}</td>
+              <td>{{ ptool.prodTool }}</td>
+              <td>{{ ptool.price }}</td>
+              <td>{{ ptool.reasons }}</td>
+              <td>
+                {% if ptool.status == 'True' %}
+                    Approved
+                {% elif ptool.status == 'False' %}
+                    Declined
+                {% elif ptool.status == 'None' %}
+                    Pending
+                {% endif %}
+              </td>
+              <td>{{ ptool.dateApproved }}</td>
+              <td>{{ ptool.approvedBy }}</td>
+              
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        </div>
+</div>
+{% endblock %}

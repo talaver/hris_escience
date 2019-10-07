@@ -1,0 +1,30 @@
+{% extends 'app_forms/base2.html' %}
+{% block content %}
+<div class="container jumbotron" style="margin-top: 20px;">
+    <div class="row">
+        <div class="col-lg-5">
+            <button onclick="window.location='{% url 'overtime_request' %}'" class="btn btn-default">Go Back</button>
+        </div>
+        <div class="col-lg-7">
+            <h1><span><h3 style="font-size: 15px; float: right;">
+                {% if ot.status == None %}
+                Status : Pending
+                {% elif ot.status == True %}
+                Status : Approved
+                {% elif ot.status == False %}
+                Status : Declined
+                {% endif %}    
+            </h3></span></h1>
+        </div>
+    </div>
+    <hr />
+    <h3>Date : {{ ots.date_ot| date:"F d Y" }}</h3>
+    <h3>{{ ots.timeFrom }} - {{ ots.timeTo }} : {{ ots.num_of_hrs }} Hours</h3>
+    <h5>{{ ots.name }}</h5>
+    <p style="font-size: 30px;">{{ ots.project_name }} | {{ ots.reason }}</p>
+    {% if ots.status != None %}
+    <p style="font-size: 20px;">Remarks : {{ ots.remarks }}</p>
+    <p style="font-size: 20px;">Approved By : {{ ots.approvedBy }}</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>{{ file_name }}</title>
+        <style type="text/css">
+            body {
+                font-weight: 200;
+                font-size: 14px;
+            }
+            .header {
+                font-size: 20px;
+                font-weight: 100;
+                text-align: center;
+                color: #007cae;
+            }
+            .title {
+                font-size: 22px;
+                font-weight: 100;
+               /* text-align: right;*/
+               padding: 10px 20px 0px 20px;  
+            }
+            .title span {
+                color: #007cae;
+            }
+            .details {
+                padding: 10px 20px 0px 20px;
+                text-align: left !important;
+                /*margin-left: 40%;*/
+            }
+            .hrItem {
+                border: none;
+                height: 1px;
+                /* Set the hr color */
+                color: #333; /* old IE */
+                background-color: #fff; /* Modern Browsers */
+            }
+        </style>
+    </head>
+    <body>
+        <div class='wrapper'>
+            <div class='header'>
+                <p class='title'>{{ file_name }}</p>
+            </div>
+        <div>
+        <div class='details'>
+                <div class="container form-group">
+                        <div class="table-responsive">          
+                            <table class="table">
+                              <thead>
+                                <tr style="text-align: center">
+                                  <th>Name</th>
+                                  <th>Leave Type</th>
+                                  <th>Date From</th>
+                                  <th>Date To</th>
+                                  <th>Time From</th>
+                                  <th>Time To</th>
+                                  <th>Reason</th>
+                                  <th>Status</th>
+                                  <th>Days</th>
+                                  <th>Remarks</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {% for leave in leaves %}
+                                <tr style="text-align: center">
+                                  <td>{{ leave.name }}</td>
+                                  <td>{{ leave.leaveType }}</td>
+                                  <td>{{ leave.dateFrom }}</td>
+                                  <td>{{ leave.dateTo }}</td>
+                                  <td>
+                                    {% if leave.timeFrom == None %}
+                                        --
+                                    {% elif leave.timeFrom != None %}
+                                        {{ leave.timeFrom }}
+                                    {% endif %}
+                                  </td>
+                                  <td>
+                                    {% if leave.timeTo == None %}
+                                        --
+                                    {% elif leave.timeTo != None %}
+                                        {{ leave.timeTo }}
+                                    {% endif %}
+                                  </td>
+                                  <td>{{ leave.reason }}</td>
+                                  <td>
+                                        {% if leave.status == 'True' %}
+                                            Approved
+                                        {% elif leave.status == 'False' %}
+                                            Declined
+                                        {% elif leave.status == 'None' %}
+                                            Pending
+                                        {% endif %}
+                                  </td>
+                                  <td>{{ leave.leaveCount }}</td>
+                                  <td>{{ leave.remarks }}</td>
+                                </tr>
+                                {% endfor %}
+                              </tbody>
+                            </table>
+                            </div>
+                    </div>
+            <hr class='hrItem' />
+        </div>
+    </div>
+    </body>
+</html>

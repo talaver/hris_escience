@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>
+        E-Science HR FORM</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+        name='viewport' />
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'app_forms/css/navbar.css' %}" />
+    <!-- <link rel="stylesheet" href="{% static 'app_forms/css/bootstrap.css' %}" /> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="wrapper ">
+        <div class="container example2">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#navbar2">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="{% url 'dashboard' %}"><img src="{% static 'app_forms/css/dark_logo_copy.png' %}"
+                                alt="E-Science">
+                        </a>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="{% url 'dashboard' %}">Home</a></li>
+                            <li><a href="{% url 'leave_filing' %}">Leave Filing</a></li>
+                            <li><a href="{% url 'change_of_work_schedule' %}">Change Of Work Schedule</a></li>
+                            <li><a href="{% url 'add_productivity_tool' %}">Productivity Tool</a></li>
+                            <li><a href="{% url 'overtime' %}">Overtime</a></li>
+                            <li><a href="{% url 'undertime' %}">Undertime</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                    aria-expanded="false">Dropdown <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Profile</a></li>
+                                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                                    <li class="divider"></li>
+                                    <li class="dropdown-header">Nav header</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--/.nav-collapse -->
+                </div>
+                <!--/.container-fluid -->
+            </nav>
+        </div>
+
+        <div class="container">
+            {% block content %}
+
+            {% endblock %}
+        </div>
+
+
+        <script src="{% static 'app_forms/js/bcast.js' %}"></script>
+        <script src="{% static 'app_forms/js/cows.js' %}"></script>
+        <script src="{% static 'app_forms/js/leave.js' %}"></script>
+        <script src="{% static 'app_forms/js/overtime.js' %}"></script>
+        <script src="{% static 'app_forms/js/prodtool.js' %}"></script>
+        <script src="{% static 'app_forms/js/pslip.js' %}"></script>
+        <script src="{% static 'app_forms/js/undertime.js' %}"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+            var csrf_token = '{{ csrf_token }}'
+        </script>
+        <script>
+            $('.navbar-nav a').on('click', function () {
+                $('.navbar-nav').find('li.active').removeClass('active');
+                $(this).parent('li').addClass('active');
+            });
+        </script>
+
+
+
+
+        <script>
+            // Add active class to the current button (highlight it)
+            var header = document.getElementById("myDIV");
+            var btns = header.getElementsByClassName("btn");
+            for (var i = 0; i < btns.length; i++) {
+                btns[i].addEventListener("click", function () {
+                    var current = document.getElementsByClassName("active");
+                    current[0].className = current[0].className.replace(" active", "");
+                    this.className += " active";
+                });
+            }
+        </script>
+
+</body>
+
+</html>

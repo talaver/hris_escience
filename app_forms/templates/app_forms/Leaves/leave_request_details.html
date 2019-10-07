@@ -1,0 +1,33 @@
+{% extends 'app_forms/base2.html' %}
+{% block content %}
+<div class="container jumbotron" style="margin-top: 20px;">
+    <div class="row">
+        <div class="col-lg-5">
+            <button onclick="window.location='{% url 'leave_request' %}'" class="btn btn-default">Go Back</button>
+        </div>
+        <div class="col-lg-7">
+            <h1><span><h3 style="font-size: 15px; float: right;">
+                {% if leaves.status == None %}
+                Status : Pending
+                {% elif leaves.status == True %}
+                Status : Approved
+                {% elif leaves.status == False %}
+                Status : Declined
+                {% endif %}    
+            </h3></span></h1>
+        </div>
+    </div>
+    <hr />
+    <h3>{{ leaves.leaveType }}</h3>
+    <h5>{{ leaves.dateFrom }} &nbsp; TO &nbsp; {{ leaves.dateTo }}</h5>
+    {% if leaves.timeFrom != None and leaves.timeTo != None %}
+    <h5>{{ leaves.timeFrom }} &nbsp; TO &nbsp; {{ leaves.timeTo }}</h5>
+    {% else %}
+    {% endif %}
+    <p style="font-size: 30px;">{{ leaves.reason }}</p>
+    {% if leaves.status != None %}
+    <p style="font-size: 20px;">Remarks : {{ leaves.remarks }}</p>
+    <p style="font-size: 20px;">Approved By : {{ leaves.approvedBy }}</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+
+<div class="card text-white bg-primary mb-3" style="max-width: 20rem;" onclick="window.location='{% url 'change_of_work_schedule_approval_details' pk=cow.pk %}'">
+    <div class="card-header">{{ cow.department }}</div>
+    <div class="card-body">
+        <h4 class="card-title">{{ cow.author }}</h4>
+        <p class="card-text">Date From : {{ cow.fromDate| date:"M d Y" }}</p>
+        <p class="card-text">Date To : {{ cow.toDate| date:"M d Y" }}</p>
+        <p class="card-text">{{ cow.reason| truncatechars:40 }}</p>
+    </div>
+</div>
+<script type="text/javascript">
+    function refreshPage()
+    {
+        window.location.reload(true);
+    }
+</script>

@@ -1,0 +1,108 @@
+{% extends 'app_forms/base2.html' %}
+{% block content %}
+<head>  
+    <div style="margin-left: -20px;" class="btn-group">
+        <div class="col-lg-4">
+                <button onclick="window.location='{% url 'productivity_tool_request' %}'" style="width: 150px;" class="btn btn btn-outline-info">Filed Requests</button>
+        </div>
+        {% load auth_extras %} 
+        {% if request.user|has_group:"Supervisors" or request.user|has_group:"Team Leads" or request.user|has_group:"HRD" %}
+            <div class="col-lg-3"style="margin-left: -39px;">
+                <button onclick="window.location='{% url 'productivity_tool_approval' %}'" style="width: 190px;" class="btn btn btn-outline-info">Approval Requests</button>
+            </div>
+    
+            <div class="col-lg-3" style="margin-left: 50px;">
+                <button onclick="window.location='{% url 'reports_productivity_tool' %}'" style="width: 130px;" class="btn btn btn-outline-info">Reports</button>
+            </div>
+        {% endif %}
+    </div>
+
+</head>
+
+
+<div class="container form-group" style="margin-top: -20px;">
+    <br/>
+    <form method="POST">
+        <div class="container" style="width: 100%;">
+            {% csrf_token %}
+            <div class="row">
+                <div align="center" class="col-lg-12">
+                    <h3>APPLICATION FOR EMPLOYEE PRODUCTIVITY TOOL</h3>
+                </div>
+            </div>
+            <hr style="border-top: 1px solid #ccc; background: transparent;">
+            <br/>
+            <div class="row">
+                <div class="col-lg-12" style="margin-top: -20px;">
+                    <p>Dear Sir or Madam :</p>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div align="right" class="col-lg-1">
+                    <p>I, </p>
+                </div>
+                {% for field in form %}
+                {{ field.errors }}
+                {% if field.name == 'name' %}
+                <div class="col-lg-4">
+                    <input style="height: 20px; text-align: center;" name="{{ field.name }}" type="text" class="form-control" placeholder="Employee Name"/>
+                </div>
+                <div class="col-lg-7">
+                    <p> would like to ask our good office if I may avail our Employee Productivity Tool.</p>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-lg-3">
+                    <p>The property I would like to avail</p>
+                </div>
+                {% elif field.name == 'prodTool' %}
+                <div class="col-lg-4">
+                    <input style="height: 20px; text-align: center;" name="{{ field.name }}" type="text" class="form-control" placeholder="MacBook Pro"/>
+                </div>
+                <div class="col-lg-2">
+                    <p> amounting to Php</p>
+                </div>
+                {% elif field.name == 'price' %}
+                <div class="col-lg-3">
+                    <input style="height: 20px; text-align: center;" name="{{ field.name }}" type="text" class="form-control" placeholder="Php 97, 990"/>
+                </div>
+                <div></div>
+            </div>
+
+
+            <br/>
+
+
+            <div class="row">
+                <div class="col-lg-12" style="margin-top: -10px;">
+                    <p>The said property will be used for the following reasons : </p>
+                </div>
+            </div>
+            <br/>
+
+            {% elif field.name == 'reasons' %}
+            <div class="row">
+                <div class="col-lg-12">
+                    <textarea type="text" name="{{ field.name }}" class="form-control" placeholder="Increase my productivity at work">
+                    </textarea>
+                </div>
+            </div>
+
+
+            <br/>
+            {% endif %}
+            {% endfor %}
+
+            <div class="row">
+                <div align="right" class="col-lg-12">
+                    <button type="submit" class="btn btn-success">SUBMIT</button>
+                </div>
+            </div>
+
+
+        </div>
+    </form>
+</div>
+{% endblock %}

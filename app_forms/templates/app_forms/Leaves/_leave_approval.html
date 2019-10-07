@@ -1,0 +1,12 @@
+<div class="{% if leave.leaveType == 'Vacation Leave' %}card text-white bg-primary mb-3{% else %}card text-white bg-success mb-3{% endif %}" style="max-width: 20rem;" onclick="window.location='{% url 'leave_approval_details' pk=leave.pk %}'">
+    <div class="card-header">{{ leave.author }}</div>
+    <div class="card-body">
+      <h4 class="card-title">{{ leave.dateFrom| date:"M d Y" }} - {{ leave.dateTo| date:"M d Y" }}</h4>
+        {% if leave.timeFrom != None and leave.timeTo != None %}
+            <h5>Half Day</h5>
+        {% else %}
+        {% endif %}
+        <p class="card-text">{{ leave.leaveCount }} Day/s</p>
+        <p class="card-text">{{ leave.leaveType| truncatechars:40 }}</p>
+    </div>
+</div>

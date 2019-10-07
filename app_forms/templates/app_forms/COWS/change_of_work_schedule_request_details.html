@@ -1,0 +1,29 @@
+{% extends 'app_forms/base2.html' %}
+{% block content %}
+<div class="container jumbotron" style="margin-top: 20px;">
+    <div class="row">
+        <div class="col-lg-5">
+            <button onclick="window.location='{% url 'change_of_work_schedule_request' %}'" class="btn btn-default">Go Back</button>
+        </div>
+        <div class="col-lg-7">
+            <h1><span><h3 style="font-size: 15px; float: right;">
+                {% if cows.status == None %}
+                Status : Pending
+                {% elif cows.status == True %}
+                Status : Approved
+                {% elif cows.status == False %}
+                Status : Declined
+                {% endif %}    
+            </h3></span></h1>
+        </div>
+    </div>
+    <hr />
+    <h3>From : {{ cows.fromDate }} ({{ cows.fromTimeFrom }} - {{ cows.fromTimeTo }})</h3>
+    <h3>To : {{ cows.toDate }} ({{ cows.toTimeFrom }} - {{ cows.toTimeTo }})</h3>
+    <p style="font-size: 30px;">{{ cows.reason }}</p>
+    {% if cows.status != None %}
+    <p style="font-size: 20px;">Remarks : {{ cows.remarks }}</p>
+    <p style="font-size: 20px;">Approved By : {{ cows.approvedBy }}</p>
+    {% endif %}
+</div>
+{% endblock %}

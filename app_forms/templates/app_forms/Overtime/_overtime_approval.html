@@ -1,0 +1,14 @@
+<div class="card text-white bg-primary mb-3" style="max-width: 20rem;" onclick="window.location='{% url 'overtime_approval_details' pk=ot.pk %}'">
+    <div class="card-header">{{ ot.name }}</div>
+    <div class="card-body">
+        <h4 class="card-title">Date : {{ ot.date_ot| date:"M d Y" }}<br/>{{ ot.timeFrom }} - {{ ot.timeTo }} : {{ ot.num_of_hrs }} Hours</h4>
+        <p class="card-text">{{ ot.project_name }} | {{ ot.reason }}</p>
+        <p class="card-text">Date Filed : {{ ot.dateFiled| date:"M d Y" }}</p>
+    </div>
+</div>
+<script type="text/javascript">
+    function refreshPage()
+    {
+        window.location.reload(true);
+    }
+</script>

@@ -1,0 +1,48 @@
+{% extends 'app_forms/base2.html' %}
+{% block content %}
+
+<html>
+
+<head>
+    <center style="font-size: 20px; margin-bottom: 10px;">CHANGE OF WORK SCHEDULE</center>
+</head>
+
+<body>
+
+    <div class="text-center">
+
+        <div style="margin-left: 130px;" class="btn-group">
+            <div class="col-lg-4">
+                <button onclick="window.location='{% url 'add_change_of_work_schedule' %}'" style="width: 200px;"
+                    class="btn btn-primary btn-outline-info">Change Work Schedule</button>
+            </div>
+            <div class="col-lg-4" style="margin-left: -20px;">
+                <button onclick="window.location='{% url 'change_of_work_schedule_request' %}'" style="width: 200px;"
+                    class="btn btn-primary btn-outline-info">Filed Requests</button>
+            </div>
+            <div class="col-lg-4" style="margin-left: -20px;">
+                <button onclick="window.location='{% url 'change_of_work_schedule_summary' %}'" style="width: 200px;"
+                    class="btn btn-primary btn-outline-info">Summary Of Requests</button>
+            </div>
+        </div>
+        <br />
+        {% load auth_extras %}
+        {% if request.user|has_group:"Supervisors" or request.user|has_group:"Team Leads" or request.user|has_group:"HRD" %}
+        <div style="margin-left: 120px;" class="btn-group">
+
+            <div class="col-lg-3" style="margin-left: 90px;">
+                <button onclick="window.location='{% url 'change_of_work_schedule_approval' %}'" style="width: 250px;"
+                    class="btn btn-primary btn-outline-info">Approval Requests</button>
+            </div>
+
+            <div class="col-lg-3" style="margin-left: 90px;">
+                <button onclick="window.location='{% url 'reports_change_of_work_schedule' %}'" style="width: 200px;"
+                    class="btn btn-primary btn-outline-info">Reports</button>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+
+</html>
+{% endblock %}

@@ -1,0 +1,14 @@
+<div class="card text-white bg-primary mb-3" style="max-width: 20rem;" onclick="window.location='{% url 'undertime_approval_details' pk=ut.pk %}'">
+    <div class="card-header">{{ ut.name }}</div>
+    <div class="card-body">
+        <h4 class="card-title">Date : {{ ut.date_ut| date:"M d Y" }}<br/>{{ ut.timeFrom }} - {{ ut.timeTo }} : {{ ut.num_of_hrs }} Hours</h4>
+        <p class="card-text">{{ ut.reason }}</p>
+        <p class="card-text">Date Filed : {{ ut.dateFiled| date:"M d Y" }}</p>
+    </div>
+</div>
+<script type="text/javascript">
+    function refreshPage()
+    {
+        window.location.reload(true);
+    }
+</script>

@@ -1,0 +1,16 @@
+<div class="jumbotron">
+    <h3>Subject : {{ bcast.bcast_subj }}</h3>
+    {% if bcast.bcast_image %}
+    <center><a href="{{ bcast.bcast_image.url }}"><img src="{{ bcast.bcast_image.url }}" alt="" style="height: 65%; width: 65%;"/></a></center>
+    {% endif %}
+    {% if bcast.bcast_file %}
+    <h5>Broadcast File : <a style="color: #00bc8c;" href="/eforms/media/{{ bcast.bcast_file }}">{{ bcast.bcast_file.name }}</a></h5>
+    {% endif %}
+    {% if bcast.bcast_desc %}
+    <h4>Description : {{ bcast.bcast_desc }}</h4>
+    {% endif %}
+    {% load auth_extras %}
+    {% if request.user|has_group:"HRD" %}
+        <button data-id="{{ bcast.id }}" onclick="deleteBcast(this); refreshPage();" class="btn btn-danger">Delete</button>
+    {% endif %}
+</div>

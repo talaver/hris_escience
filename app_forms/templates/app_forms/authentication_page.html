@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'app_forms/css/bootstrap.css' %}" />
+    <link rel="stylesheet" href="{% static 'app_forms/css/style.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="../../eforms/static/app_forms/css/dark_logo.png" type="image/gif" sizes="16x16">
+    <title>HR Forms</title>
+</head>
+<body>
+    <div class="container">
+            <form method="POST" enctype="multipart/form-data">
+                <div class="container" style="margin-top: 60px; width: 50%;">
+                {% csrf_token %}
+                <div class="row">
+                    <div align="center" class="col-lg-12">
+                        <h3>TWO FACTOR AUTHENTICATION</h3>
+                    </div>
+                </div>
+                <hr style="border-top: 1px solid #ccc; background: transparent;">
+
+                <br/>
+
+                {% for field in form %}
+                {{ field.errors }}
+                {% if field.name == 'mfa_code' %}
+                <div class="row">
+                    <div align="center" class="col-lg-12">
+                        <label>ENTER TWO-FACTOR AUTHENTICATION CODE</label>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div align="center" class="col-lg-12">
+                            <input name="{{ field.name }}" style="width: 100%; text-align: center" type="text" class="form-control" placeholder="e.g. 123456">
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+
+                <div style="margin-top: 5%;" class="row">
+                    <div class="col-lg-12">
+                        <center><button style="width: 50%;" class="btn btn-info">SUBMIT</button></center>
+                    </div>
+                </div>
+
+                
+            </div>
+        </form>
+    </div>
+</body>
+</html>

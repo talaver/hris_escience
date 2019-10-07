@@ -1,0 +1,30 @@
+{% extends 'app_forms/base2.html' %}
+{% block content %}
+<div class="container jumbutron" style="margin-top: 20px;">
+    <div class="row">
+        <div class="col-lg-5">
+            <button onclick="window.location='{% url 'undertime_request' %}'" class="btn btn-default">Go Back</button>
+        </div>
+        <div class="col-lg-7">
+            <h1><span><h3 style="font-size: 15px; float: right;">
+                {% if ut.status == None %}
+                Status : Pending
+                {% elif ut.status == True %}
+                Status : Approved
+                {% elif ut.status == False %}
+                Status : Declined
+                {% endif %}    
+            </h3></span></h1>
+        </div>
+    </div>
+    <hr />
+    <h3>Date : {{ uts.date_ut| date:"F d Y" }}</h3>
+    <h3>{{ uts.timeFrom }} - {{ uts.timeTo }} : {{ uts.num_of_hrs }} Hours</h3>
+    <h5>{{ uts.name }}</h5>
+    <p style="font-size: 30px;">{{ uts.reason }}</p>
+    {% if uts.status != None %}
+    <p style="font-size: 20px;">Remarks : {{ uts.remarks }}</p>
+    <p style="font-size: 20px;">Approved By : {{ uts.approvedBy }}</p>
+    {% endif %}
+</div>
+{% endblock %}

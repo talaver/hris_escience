@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'app_forms/css/bootstrap.css' %}" />
+    <title>HR FORMS</title>
+    <link rel="icon" href="../../eforms/static/app_forms/css/dark_logo.png" type="image/gif" sizes="32x32">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+<style>
+	@import url(https://fonts.googleapis.com/css?family=Exo:100,200,400);
+	@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:700,400,300);
+</style>
+
+</head>
+
+
+<body style="background-color: lightgrey;">
+
+<!-- LOGIN -->
+<container class="loginform">
+    <div style="align-content: center; margin-top: 340px;">
+
+        <form method="POST">
+        <center>
+        {% csrf_token %}
+        {% for field in form %}
+            {% if field.label == 'Username' %}
+            <div>
+                <input type="text" class="form-control" name="{{ field.name }}" placeholder="Username" style="width: 40%; text-align: left; margin-left: 10px;">
+                <i style="margin-left: 33%; color: #375a7f" class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
+            </div>
+            {% elif field.label == 'Password' %}
+            <div>
+                <input type="password" class="form-control" id="password-field" placeholder="Password" name="{{ field.name }}" style="width: 40%; text-align: left; margin-left: 10px;">
+                <i style="margin-left: 33%; color: #375a7f" toggle="#password-field" class="fa fa-eye fa-lg fa-fw toggle-password" aria-hidden="true"></i>
+            </div>
+        {% endif %}
+        {% endfor %}
+        {% if form.errors %}
+            <div style="width: 30%; margin-left: 10px;" class="alert alert-danger alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong style="cursor: default;">Invalid username/password</strong>
+            </div>
+        {% endif %}
+        <div style="margin-top: 1%;">
+            <button type="submit" style="width: 20%; margin-left: 10px;" class="btn btn-primary">Login</button>
+        </div>
+
+        </center>
+    </form>
+</div>
+</container>
+
+
+
+    <script src="{% static 'app_forms/js/calendar.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script>
+        var csrf_token = '{{ csrf_token }}'
+    </script>
+
+    <script>
+    $(".toggle-password").click(function() {
+    $(this).toggleClass("fa-eye fa-eye-slash");
+    var input = $($(this).attr("toggle"));
+    if (input.attr("type") == "password") {
+    input.attr("type", "text");
+    } else {
+    input.attr("type", "password");
+    }
+    });
+</script>
+</body>
+</html>

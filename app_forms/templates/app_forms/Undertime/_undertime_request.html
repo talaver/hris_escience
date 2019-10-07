@@ -1,0 +1,19 @@
+<div class="card text-white bg-primary mb-3">
+        <div class="card-header"><a style="color: #00bc8c;" href="#"><h5 onclick="window.location='{% url 'undertime_request_details' pk=ut.pk %}'">{{ ut.name }}</h5></a></div>
+        <div class="card-body">
+                <p class="card-text">Date : {{ ut.date_ut| date:"M d Y" }}</p>
+                <p class="card-text">{{ ut.timeFrom }} - {{ ut.timeTo }} | {{ ut.num_of_hrs }} Hours</p>
+                <p class="card-text">{{ ut.reason }}</p>
+                <p class="card-text">Date Filed : {{ ut.dateFiled| date:"M d Y" }}</p>
+                {% if ut.status == 'None' %}
+                        <button data-id="{{ ut.pk }}" onclick="deleteUndertime(this); refreshPage();" class="btn btn-danger">Delete</button>
+                {% endif %}
+        </div>
+</div>
+
+<script type="text/javascript">
+        function refreshPage()
+        {
+            window.location.reload(true);
+        }
+</script>

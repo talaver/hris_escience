@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{% static 'app_forms/css/bootstrap.css' %}" />
+    <link rel="stylesheet" href="{% static 'app_forms/css/loginpage.css' %}" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+    <!-- <style>
+	@import url(https://fonts.googleapis.com/css?family=Exo:100,200,400);
+	@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:700,400,300);
+</style> -->
+
+</head>
+
+
+<body>
+
+    <!-- LOGIN -->
+    <container class="loginform2"> 
+        <div>
+            <form method="POST">
+                <center>
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="username"> Username</label>
+                        <input id="usernameinput" type="text" class="form-control" id="username" value="username">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password"> Password</label>
+                        <input id="passwordinput" type="password" class="form-control" id="username" value="password">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Login</button>
+
+                </center>
+            </form>
+        </div>
+    </container>
+
+    <script src="{% static 'app_forms/js/calendar.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script>
+        var csrf_token = '{{ csrf_token }}'
+    </script>
+
+    <!-- <script>
+        $(".toggle-password").click(function () {
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $($(this).attr("toggle"));
+            if (input.attr("type") == "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+        });
+    </script> -->
+</body>
+
+</html>

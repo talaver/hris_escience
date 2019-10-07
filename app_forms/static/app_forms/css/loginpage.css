@@ -1,0 +1,33 @@
+body {
+	background-image: url(loginform3.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	/* background-color: blue; */
+}
+
+.loginform2 {
+    position: absolute;
+	top: 500px;
+	left: 35px;
+	right: 20px;
+    bottom: 10px;
+	width: auto;
+	height: auto;
+	
+	
+  	/* background-repeat: no-repeat;
+    background-size: 55%; */
+}
+
+#usernameinput {
+	width: 40%; 
+	text-align: left; 
+	margin-left: 10px;
+}
+
+#passwordinput {
+	width: 40%; 
+	text-align: left; 
+	margin-left: 10px;
+}
+

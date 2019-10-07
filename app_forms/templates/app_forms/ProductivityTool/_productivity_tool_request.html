@@ -1,0 +1,16 @@
+<div class="card text-white bg-primary mb-3">
+    <div class="card-header"><a style="color: #00bc8c;" href="#"><h5 onclick="window.location='{% url 'productivity_tool_request_details' pk=ptool.pk %}'">{{ ptool.name }}</h5></a></div>
+    <div class="card-body">
+            <p class="card-text">{{ ptool.prodTool }} | ₱ {{ ptool.price }}</p>
+            <p class="card-text">{{ ptool.reasons }}</p>
+            {% if ptool.status == 'None' %}
+                <button data-id="{{ ptool.id }}" onclick="deleteProductivityTool(this); refreshPage();" class="btn btn-danger">Delete</button>
+            {% endif %}
+    </div>
+</div>
+<script type="text/javascript">
+    function refreshPage()
+    {
+        window.location.reload(true);
+    }
+</script>

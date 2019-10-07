@@ -1,0 +1,74 @@
+{% extends 'app_forms/base2.html' %}
+
+{% block content %}
+<div class="container jumbotron" style="margin-top: 20px;">
+    <div class="row">
+        <div class="col-lg-5">
+            <button onclick="window.location='{% url 'leave_approval' %}'" class="btn btn-default">Go Back</button>
+        </div>
+        <div class="col-lg-7">
+                <h1><span><h3 style="font-size: 15px; float: right;">
+                        {% if leavess.status == 'None' %}
+                        Status : Pending
+                        {% elif leavess.status == 'True' %}
+                        Status : Approved
+                        {% elif leaves.status == 'False' %}
+                        Status : Declined
+                        {% endif %}    
+                    </h3></span></h1>
+        </div>  
+    </div>
+    <hr />
+    <h3>{{ leaves.author }}</h3>
+    <h4>{{ leaves.leavesType }}</h4>
+    <h5>{{ leaves.dateFrom }} &nbsp; TO &nbsp; {{ leaves.dateTo }} &nbsp;&nbsp;&nbsp; ({{ leaves.leaveCount }} Day/s)</h5>
+    {% if leaves.timeFrom != None and leaves.timeTo != None %}
+    <h5>{{ leaves.timeFrom }} &nbsp; TO &nbsp; {{ leaves.timeTo }}</h5>
+    {% else %}
+    {% endif %}
+    <p style="font-size: 30px;">{{ leaves.reason }}</p>
+    {% if leaves.status == 'None' %}
+    <form method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+    {{ field.errors }}
+    {% if field.name == 'remarks' %}
+    <input name="{{ field.name }}" onkeyup="checkRemarks();" id="remarks" type="text" placeholder="Remarks..." class="form-control"/> <br/>
+    {% elif field.name == 'status' %}
+    <select name="{{ field.name }}" id="status" class="form-control" style="width: 150px;" >
+        <option value='True'>APPROVE</option>
+        <option value='False'>DECLINE</option>
+    </select>
+    {% endif %}
+    {% endfor %}
+    <button type="submit" id="btnAcc" data-id="{{ leaves.id }}" onclick="refreshPage();" class="btn btn-success" disabled>SUBMIT</button>      
+    </form> 
+    {% else %}
+    <p style="font-size: 20px;">Remarks : {{ leaves.remarks }}</p>
+    <p style="font-size: 20px;">Approved By : {{ leaves.approvedBy }}</p>
+    {% endif %}
+</div>
+<script type="text/javascript">
+    function refreshPage()
+    {
+        if(document.getElementById('status').value == "APPROVE"){
+            document.getElementById('status').value = true
+        } 
+        else if(document.getElementById('status').value == "DECLINE"){
+            document.getElementById('status').value = false
+        }
+
+        window.location.reload(true);
+    }
+
+    function checkRemarks(){
+        if(document.getElementById('remarks').value == "" ){
+            document.getElementById('btnAcc').disabled = true;
+            document.getElementById('btnDec').disabled = true;
+        } else {
+            document.getElementById('btnAcc').disabled = false;
+            document.getElementById('btnDec').disabled = false;
+        }
+    }
+</script>
+{% endblock %}

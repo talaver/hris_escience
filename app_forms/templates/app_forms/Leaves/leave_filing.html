@@ -1,0 +1,97 @@
+{% extends 'app_forms/base2.html' %}
+{% block content %}
+
+<html>
+
+<head>
+    <center style="font-size: 20px; margin-bottom: 10px;">LEAVE FILING</center>
+</head>
+
+<body>
+
+    {% load auth_extras %}
+    <div class="text-center">
+        <div>
+
+            {% if totalCount.leaveCount__sum < total_leave_credits or totalCount.leaveCount__sum == None or request.user|has_group:"Probationary" %}
+            <button onclick="window.location='{% url 'add_leave' %}'" style="width: 150px"
+                class="btn btn-primary btn-outline-info">ADD ENTRY</button>
+            {% elif totalCount.leaveCount__sum >= total_leave_credits %}
+            <button disabled onclick="window.location='{% url 'add_leave' %}'" style="width: 150px;"
+                class="btn btn-primary btn-outline-info">ADD ENTRY</button>
+            {% endif %}
+            <button onclick="window.location='{% url 'leave_request' %}'" style="width: 150px;"
+                class="btn btn-primary btn-outline-info">FILED LEAVES</button>
+            <button onclick="window.location='{% url 'leave_summary' %}'" style="width: 180px;"
+                class="btn btn-primary btn-outline-info">LEAVE SUMMARY</button>
+
+        </div>
+
+        <br />
+
+        {% if request.user|has_group:"Supervisors" or request.user|has_group:"Team Leads" or request.user|has_group:"HRD" %}
+        <div>
+
+            <button onclick="window.location='{% url 'leave_approval' %}'" style="width: 200px;"
+                class="btn btn-primary btn-outline-info">APPROVAL REQUESTS</button>
+            <button onclick="window.location='{% url 'reports_leave' %}'" style="width: 150px;"
+                class="btn btn-primary btn-outline-info">REPORTS</button>
+
+        </div>
+        {% endif %}
+
+    </div>
+
+
+    <div class="topright">
+
+
+        <div class="col-lg-4">
+            <h3>Sick Leaves Used :</h3>
+            <h3>
+                {% if sickCount.leaveCount__sum == None %}
+                0
+                {% else %}
+                {{ sickCount.leaveCount__sum }}
+                {% endif %}
+                /
+                {{ sickLeave }}
+            </h3>
+        </div>
+        <br>
+        <div class="col-lg-4">
+            <h3>Vacation Leaves Used :</h3>
+            <h3>
+                {% if vacationCount.leaveCount__sum == None %}
+                0
+                {% else %}
+                {{ vacationCount.leaveCount__sum }}
+                {% endif %}
+                /
+                {{ vacationLeave }}
+            </h3>
+        </div>
+        <br>
+        <div class="col-lg-4">
+            <h3>Total Leaves Used :</h3>
+            <h3>
+                {% if totalCount.leaveCount__sum == None %}
+                0
+                {% else %}
+                {{ totalCount.leaveCount__sum }}
+                {% endif %}
+                /
+                {{ total_leave_credits }}
+            </h3>
+        </div>
+
+
+    </div>
+
+
+
+
+</body>
+
+</html>
+{% endblock %}

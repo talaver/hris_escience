@@ -1,0 +1,22 @@
+{% extends 'app_forms/base2.html' %}
+{% block content %}
+<html>
+<head>
+</head>
+<body>
+    {% load auth_extras %}
+    {% if request.user|has_group:"HRD" %}
+    <!-- <div class="row">
+        <div class="col-lg-12">
+        </div>
+    </div> -->
+    {% endif %}
+    <h1>Announcements <button onclick="window.location='{% url 'add_broadcast' %}'" class="btn btn-primary">+</button></h1> 
+    <!-- <button onclick="window.location='{% url 'add_broadcast' %}'" style="width: 200px;"  >ADD BROADCAST</button> -->
+    
+
+    {% for bcast in broadcast %}
+            {% include 'app_forms/Broadcast/_broadcast.html' %}
+    {% endfor %}
+</body>
+{% endblock %}

@@ -1,0 +1,18 @@
+<div class="card text-white bg-primary mb-3">
+        <div class="card-header"><a style="color: #00bc8c;" href="#"><h5 onclick="window.location='{% url 'overtime_request_details' pk=ot.pk %}'">{{ ot.name }}</h5></a></div>
+        <div class="card-body">
+                <p class="card-text">Date : {{ ot.date_ot| date:"M d Y" }}</p>
+                <p class="card-text">{{ ot.timeFrom }} - {{ ot.timeTo }} | {{ ot.num_of_hrs }} Hours</p>
+                <p class="card-text">{{ ot.project_name }} | {{ ot.reason }}</p>
+                <p class="card-text">Date Filed : {{ ot.dateFiled| date:"M d Y" }}</p>
+                {% if ot.status == 'None' %}
+                        <button data-id="{{ ot.id }}" onclick="deleteOvertime(this); refreshPage();" class="btn btn-danger">Delete</button>
+                {% endif %}
+        </div>
+</div>
+<script type="text/javascript">
+        function refreshPage()
+        {
+            window.location.reload(true);
+        }
+</script>
