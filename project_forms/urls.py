@@ -15,10 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.contrib.auth.views import LoginView, LogoutView
-from django.urls import path, reverse_lazy
+from django.urls import path, reverse_lazy   
 from app_forms import views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls import include
+
+
+
 
 urlpatterns = [
     # LOGIN / LOGOUT / DASHBOARD / ADMIN
@@ -337,6 +341,10 @@ urlpatterns = [
     path('eforms/change_password', views.change_password, name='change_password'),
     path('eforms/updateProfile', views.updateProfile, name='updateProfile'),
     path('eforms/multifactor_auth', views.multifactor_auth, name='multifactor_auth'),
+
+    path('game/', include('game.urls')),
+
+     
 ]
 
 if settings.DEBUG:

@@ -9,10 +9,14 @@
         name='viewport' />
     {% load static %}
     <link rel="stylesheet" href="{% static 'app_forms/css/navbar.css' %}" />
+    <link rel="stylesheet" href="{% static 'game/css/gameforms.css' %}" />
     <!-- <link rel="stylesheet" href="{% static 'app_forms/css/bootstrap.css' %}" /> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="{% static 'game/js/gameforms.js' %}"></script>
+    
 </head>
 
 <body>
@@ -48,6 +52,7 @@
                                     <li><a href="{% url 'logout' %}">Logout</a></li>
                                     <li class="divider"></li>
                                     <li class="dropdown-header">Nav header</li>
+                                    <li><a href="{% url 'game:gamelobby' %}">Game</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -72,7 +77,11 @@
         <script src="{% static 'app_forms/js/prodtool.js' %}"></script>
         <script src="{% static 'app_forms/js/pslip.js' %}"></script>
         <script src="{% static 'app_forms/js/undertime.js' %}"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        
+        
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+        
         <script>
             var csrf_token = '{{ csrf_token }}'
         </script>
@@ -82,9 +91,6 @@
                 $(this).parent('li').addClass('active');
             });
         </script>
-
-
-
 
         <script>
             // Add active class to the current button (highlight it)
@@ -98,6 +104,8 @@
                 });
             }
         </script>
+
+        
 
 </body>
 

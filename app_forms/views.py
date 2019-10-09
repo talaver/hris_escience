@@ -23,7 +23,6 @@ from django.contrib.auth.forms import PasswordChangeForm
 from random import randint
 import boto3
 
-
 exclude_group = ['Employees', 'Supervisors',
                  'Probationary', 'Regular',
                  'Approvers']

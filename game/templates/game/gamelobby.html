@@ -1,0 +1,25 @@
+{% extends 'app_forms/base2.html' %}
+{% block content %}
+<div class="jumbotron">
+    <div class="text-center">
+        <h1>Game Lobby</h1>
+    </div>
+</div>
+
+<div class="popup">
+        <form action="" class="form-container">
+            <h1>Login</h1>
+
+            <label for="email"><b>Email</b></label>
+            <input type="text" placeholder="Enter Email" name="email" class="form-control" required>
+
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" class="form-control" required>
+            <br>
+            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-danger" class="popupCloseButton">Close</button>
+        </form>
+</div>
+
+
+{% endblock %}
