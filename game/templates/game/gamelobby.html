@@ -7,18 +7,50 @@
 </div>
 
 <div class="popup">
-        <form action="" class="form-container">
-            <h1>Login</h1>
+    <form action="" class="form-container">
+        <h1>Login</h1>
 
-            <label for="email"><b>Email</b></label>
-            <input type="text" placeholder="Enter Email" name="email" class="form-control" required>
+        <label for="email"><b>Email</b></label>
+        <input type="text" placeholder="Enter Email" name="email" class="form-control" required>
 
-            <label for="psw"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="psw" class="form-control" required>
-            <br>
-            <button type="submit" class="btn btn-primary">Login</button>
-            <button type="submit" class="btn btn-danger" class="popupCloseButton">Close</button>
-        </form>
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="psw" class="form-control" required>
+        <br>
+        <button type="submit" class="btn btn-primary">Login</button>
+        <button type="submit" class="btn btn-danger" class="popupCloseButton">Close</button>
+    </form>
+</div>
+
+<button class="btn btn-primary">Start Game</button>
+
+<!-- jQuery should be at least version 1.7 -->
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="contextmenu.js"></script>
+<link rel="stylesheet" href="contextmenu.css" />
+
+
+<div id="test1">
+    <!-- <a href="www.google.com" class="test">Google</a>
+    <a href="www.google.com" class="test">Link 2</a>
+    <a href="www.google.com" class="test">Link 3</a>
+    <a href="www.google.com" class="test">Link 4</a> -->
+    <ul>
+        <li><a class="test" href="">Right-click here</a></li>
+        <li><a class="test"> Click here</p> </li>
+    </ul>
+</div>
+
+<!-- initially hidden right-click menu -->
+<div class="hide" id="rmenu">
+    <form action="" class="form-container">
+        <div class="text-center"><h1>Report</h1></div>
+
+        <label for="name"><b>Name</b></label>
+        <input type="text" placeholder="Enter name" name="name" class="form-control" required>
+        <br>
+        <button type="submit" class="btn btn-primary">Send</button>
+        <button type="submit" class="btn btn-danger" class="popupCloseButton">Cancel</button>
+    </form>
 </div>
 
 

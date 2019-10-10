@@ -10,13 +10,14 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'app_forms/css/navbar.css' %}" />
     <link rel="stylesheet" href="{% static 'game/css/gameforms.css' %}" />
+    <link rel="stylesheet" href="{% static 'game/css/rightclickmenu.css' %}" />
     <!-- <link rel="stylesheet" href="{% static 'app_forms/css/bootstrap.css' %}" /> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <script src="{% static 'game/js/gameforms.js' %}"></script>
-    
+
+
 </head>
 
 <body>
@@ -32,8 +33,8 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="{% url 'dashboard' %}"><img src="{% static 'app_forms/css/dark_logo_copy.png' %}"
-                                alt="E-Science">
+                        <a class="navbar-brand" href="{% url 'dashboard' %}"><img
+                                src="{% static 'app_forms/css/dark_logo_copy.png' %}" alt="E-Science">
                         </a>
                     </div>
                     <div id="navbar" class="navbar-collapse collapse">
@@ -78,10 +79,11 @@
         <script src="{% static 'app_forms/js/pslip.js' %}"></script>
         <script src="{% static 'app_forms/js/undertime.js' %}"></script>
 
-        
-        
+        <!-- <script src="{% static 'game/js/gameforms.js' %}"></script> -->
+        <script src="{% static 'game/js/rightclickmenu.js' %}"></script>
+
         <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-        
+
         <script>
             var csrf_token = '{{ csrf_token }}'
         </script>
@@ -105,7 +107,7 @@
             }
         </script>
 
-        
+
 
 </body>
 
